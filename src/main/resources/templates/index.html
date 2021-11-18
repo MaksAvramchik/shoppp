@@ -1,162 +1,158 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>VapePodSystem</title>
-        <link rel="stylesheet" href="styles/style.css">
-        <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <div class="BigHeader">
-            <div class="header">
-                <img src="images/Logo.png" alt="Logo">
-                <div class="welcome">
-                    <p id="welcome">Добро пожаловать в вейп шоп VapePodSystem</p>
-                    <p id="text">В нашем интернет-магазине представлен широкий выбор одноразовых вейп POD систем!</p>
-                </div>
-                <p id="funride">!!!NEW!!!
-                    <wbr>
-                    POD HQD
-                </p>
-                <p id="super">Попробуй новые яркие вкусы от фирмы HQD! Количество подов ограничено! Не упусти момент! </p>
-                <a href="">
-                    <div class="BuyNow">
-                        КУПИТЬ СЕЙЧАС!
-                    </div>
-                </a>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <title>VapePodSystem</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="BigHeader">
+    <div class="header">
+        <img src="images/Logo.png" alt="Logo">
+        <div class="welcome">
+            <p id="welcome">Добро пожаловать в вейп шоп VapePodSystem</p>
+            <p id="text">В нашем интернет-магазине представлен широкий выбор одноразовых вейп POD систем!</p>
         </div>
-        <div class="BigContent">
-            <div class="content">
-                <div class="menu">
-                    <div id="menucaption"><p>МЕНЮ</p></div>
-                    <a href="">
-                        <div class="menuitem"><p>POD'S</p></div>
-                    </a>
-                    <a href="">
-                        <div class="menuitem"><p>Комплектующие</p></div>
-                    </a>
-                    <a href="">
-                        <div class="menuitem"><p>Аксесуары</p></div>
-                    </a>
-                    <a href="">
-                        <div class="menuitem"><p>Личный кабинет</p></div>
-                    </a>
-                    <a href="">
-                        <div class="menuitem"><p>Бренды</p></div>
-                    </a>
-                    <a href="">
-                        <div class="menuitem"><p>Корзина</p></div>
-                    </a>
+        <p id="funride">!!!NEW!!!
+            <wbr>
+            POD HQD
+        </p>
+        <p id="super">Попробуй новые яркие вкусы от фирмы HQD! Количество подов ограничено! Не упусти момент! </p>
+        <a href="">
+            <div class="BuyNow">
+                КУПИТЬ СЕЙЧАС!
+            </div>
+        </a>
+    </div>
+</div>
+<div class="BigContent">
+    <div class="content">
+        <div class="menu">
+            <div id="menucaption"><p>МЕНЮ</p></div>
+            <a href="">
+                <div class="menuitem"><p>POD'S</p></div>
+            </a>
+            <a href="">
+                <div class="menuitem"><p>Комплектующие</p></div>
+            </a>
+            <a th:href="@{/korzina}">
+                <div class="menuitem"><p>Корзина</p></div>
+            </a>
+            <a href="">
+                <div class="menuitem"><p>Личный кабинет</p></div>
+            </a>
+            <a href="">
+                <div class="menuitem"><p>Бренды</p></div>
+            </a>
+            <a th:href="@{/productTypeList}">
+                <div class="menuitem"><p>Админ</p></div>
+            </a>
+        </div>
+        <div class="products">
+            <div class="products" th:each="element : ${map}">
+                <div id="products">
+                    <p th:text="${element.key.name}"></p>
                 </div>
-                <div class="products">
-                    <div class="newproducts" th:each="element : ${map}">
-                        <div id="newproducts_caption">
-                            <p th:text="${element.key.name}"></p>
+                <div>
+                    <!--                            <div class="product" th:each="prod : ${element.value}" th:attr="onclick=|window.location.href='product/' + ${prod.id}|">-->
+                    <div class="product" th:each="prod : ${element.value}" th:attr="onclick=|window.location.href='product?id=' + ${prod.id}|">
+                        <img class="triangle" src="images/New.png" alt="new" th:if="${prod.newProduct} == true">
+                        <img class="foto" th:src="@{'/images/' + ${prod.image}}" alt="">
+                        <div class="product_name" th:text="${prod.name}">
                         </div>
-                        <div>
-<!--                            <div class="product" th:each="prod : ${element.value}" th:attr="onclick=|window.location.href='product/' + ${prod.id}|">-->
-                            <div class="product" th:each="prod : ${element.value}" th:attr="onclick=|window.location.href='product?id=' : ${prod.id}|">
-                                <img class="triangle" src="images/New.png" alt="new" th:if="${prod.newProduct} == true">
-                                <img class="triangle" src="images/Hot.png" alt="new" th:if="${prod.hotProduct} == true">
-                                <img class="foto" th:src="@{'/images/' + ${prod.image}}" alt="">
-                                <div class="product_name" th:text="${prod.name}">
-                                </div>
-                                <div class="product_price">
-                                     <span th:text="${prod.price}"></span><br>
-                                    <span class="product_old_price" th:unless="${prod.oldPrice} == 0">
+                        <div class="product_price">
+                             <span th:text="${prod.price}"></span><br>
+                            <span class="product_old_price" th:unless="${prod.oldPrice} == 0">
                                          <span th:text="${prod.oldPrice}"></span>
                                     </span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="now">
-                    <p>Мы открылись!</p>
-                </div>
-                <div id="brand">
-                    <img src="images/1.jpg" alt="1">
-                    <img src="images/2.jpg" alt="2">
-                    <img src="images/3.jpg" alt="3">
-                    <img src="images/4.jpg" alt="4">
-                    <img src="images/5.jpg" alt="5">
-                </div>
-                <div id="instagram">
-                    <p>
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                        vapepodsystem
-                    </p>
-                </div>
-                <div id="foto">
-                    <img src="images/foto1.jpg" alt="foto1">
-                    <img src="images/foto2.jpg" alt="foto2">
-                    <img src="images/foto3.jpg" alt="foto3">
-                    <img src="images/foto4.jpg" alt="foto4">
-                    <img src="images/foto5.jpg" alt="foto5">
-                </div>
             </div>
         </div>
-        <div class="BigFooter">
-            <div class="Footer">
-                <div id="category">
-                    <p class="label">Блог:</p>
-                    <ul class="list">
-                        <li><a href="">О парогенераторах</a></li>
-                        <li><a href="">О жидкостях</a></li>
-                        <li><a href="">О комплектующем</a></li>
-                    </ul>
-                </div>
-                <div id="accounts">
-                    <p class="label">Личный кабинет:</p>
-                    <ul class="list">
-                        <li><a href="">Мой кабинет</a></li>
-                        <li><a href="">Регистрация</a></li>
-                        <li><a href="">Вход</a></li>
-                    </ul>
-                </div>
-                <div id="support">
-                    <p class="label">Поддержка:</p>
-                    <ul class="list">
-                        <li><a href="">Телефон</a></li>
-                        <li><a href="">Адрес</a></li>
-                        <li><a href="">Карты</a></li>
-                    </ul>
-                </div>
-                <div id="news">
-                    <p class="label">Уведомления:</p>
-                    <p class="text">Узнайте первыми о новых поступлениях товаров и проводимых акциях.</p>
-                    <p>
-                        <label>
-                            <input type="text" placeholder="Вставить EMAIL">
-                        </label>
-                        <input type="submit" value="Отправить">
-                    </p>
-                    <div id="cards">
-                        <img src="images/master.png" alt="Master Card">
-                        <img src="images/maestro.png" alt="Maestro">
-                        <img src="images/visa.png" alt="Visa">
-                    </div>
-                </div>
-                <div id="about">
-                    <p class="label">О магазине:</p>
-                    <p class="text">
-                        В нашем интернет-магазине представлены товары от крупнейших производителей электронных парогенераторов, таких как Eleaf, HQD, Elfbar, MaskKing, CityPod, Puff. Все товары сертифицированы.
-                    </p>
-                    <div>
-                        Телефон: +375 (33) 333-33-33
-                        <br>
-                        e-mail: <span>info@vapepodsystem.by</span>
-                    </div>
-                </div>
-            </div>
-            <div class="SubFooter">
-                <div class="ContentSubFooter">
-                    <div id="copy">
-                        &copy; VAPEPODSYSTEM. Все права защищены.
-                    </div>
-                </div>
+        <div id="brand">
+            <img src="images/1.jpg" alt="1">
+            <img src="images/2.jpg" alt="2">
+            <img src="images/3.jpg" alt="3">
+            <img src="images/4.jpg" alt="4">
+            <img src="images/5.jpg" alt="5">
+        </div>
+        <div id="instagram">
+            <p>
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+                vapepodsystem
+            </p>
+        </div>
+        <div id="foto">
+            <img src="images/foto1.jpg" alt="foto1">
+            <img src="images/foto2.jpg" alt="foto2">
+            <img src="images/foto3.jpg" alt="foto3">
+            <img src="images/foto4.jpg" alt="foto4">
+            <img src="images/foto5.jpg" alt="foto5">
+        </div>
+    </div>
+</div>
+<div class="BigFooter">
+    <div class="Footer">
+        <div id="category">
+            <p class="label">Блог:</p>
+            <ul class="list">
+                <li><a href="">О парогенераторах</a></li>
+                <li><a href="">О жидкостях</a></li>
+                <li><a href="">О комплектующем</a></li>
+            </ul>
+        </div>
+        <div id="accounts">
+            <p class="label">Личный кабинет:</p>
+            <ul class="list">
+                <li><a href="">Мой кабинет</a></li>
+                <li><a href="">Регистрация</a></li>
+                <li><a href="">Вход</a></li>
+            </ul>
+        </div>
+        <div id="support">
+            <p class="label">Поддержка:</p>
+            <ul class="list">
+                <li><a href="">Телефон</a></li>
+                <li><a href="">Адрес</a></li>
+                <li><a href="">Карты</a></li>
+            </ul>
+        </div>
+        <div id="news">
+            <p class="label">Уведомления:</p>
+            <p class="text">Узнайте первыми о новых поступлениях товаров и проводимых акциях.</p>
+            <p>
+                <label>
+                    <input type="text" placeholder="Вставить EMAIL">
+                </label>
+                <input type="submit" value="Отправить">
+            </p>
+            <div id="cards">
+                <img src="images/master.png" alt="Master Card">
+                <img src="images/maestro.png" alt="Maestro">
+                <img src="images/visa.png" alt="Visa">
             </div>
         </div>
-    </body>
+        <div id="about">
+            <p class="label">О магазине:</p>
+            <p class="text">
+                В нашем интернет-магазине представлены товары от крупнейших производителей электронных парогенераторов, таких как Eleaf, HQD, Elfbar, MaskKing, CityPod, Puff. Все товары сертифицированы.
+            </p>
+            <div>
+                Телефон: +375 (33) 333-33-33
+                <br>
+                e-mail: <span>info@vapepodsystem.by</span>
+            </div>
+        </div>
+    </div>
+    <div class="SubFooter">
+        <div class="ContentSubFooter">
+            <div id="copy">
+                &copy; VAPEPODSYSTEM. Все права защищены.
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>

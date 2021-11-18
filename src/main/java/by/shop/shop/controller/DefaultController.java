@@ -4,13 +4,12 @@ import by.shop.shop.entyty.Product;
 import by.shop.shop.entyty.ProductType;
 import by.shop.shop.repository.ProductRepository;
 import by.shop.shop.repository.ProductTypeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,18 +18,25 @@ import java.util.Map;
 @Controller
 public class DefaultController {
 
+    private static Logger logger = LoggerFactory.getLogger(DefaultController.class);
+
+
     @Autowired
     ProductTypeRepository productTypeRepository;
 
     @Autowired
     ProductRepository productRepository;
 
+
+
     @GetMapping("/")
     public String index(Model model) {
+        logger.info("Home page запущена");
         Iterable<ProductType> types = productTypeRepository.findAll();
         Map<ProductType, List<Product>> map = new HashMap<>();
         types.forEach(type -> map.put(type, productRepository.findByProductType(type)));
         model.addAttribute("map", map);
+        logger.info("index");
         return "index";
 
     }
@@ -69,6 +75,18 @@ public class DefaultController {
         model.addAttribute("types", types);
 
         return "productTypeList";
+
+    }
+
+    @GetMapping("/korzina")
+
+    public String korzina(Model model) {
+
+        Iterable<ProductType> types = productTypeRepository.findAll();
+
+        model.addAttribute("types", types);
+
+        return "korzina";
 
     }
 

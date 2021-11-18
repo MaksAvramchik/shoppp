@@ -11,7 +11,10 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Типы продуктов</a>
+        <a class="navbar-brand" href="#">Кабинет администратора:</a>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Выход"/>
+        </form>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,12 +22,12 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/productTypeList}">Типы продуктов
+                    <a class="nav-link" th:href="@{/productTypeList}">Админ
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/productList}">Продукты</a>
+                    <a class="nav-link" th:href="@{/}">Товары</a>
                 </li>
             </ul>
         </div>
@@ -44,11 +47,11 @@
             <td th:text="${state.index + 1}"></td>
             <td th:text="${type.name}"></td>
             <td><a th:href="@{'/productTypeList/edit/' + ${type.id}}" class="badge badge-primary">Редактировать</a></td>
-            <td><a th:href="@{'/productTypeList/delete/' + ${type.id}}" class="badge badge-danger">Удалить</a></td>
+            <td><a th:href="@{'/productTypeList/delete/' + ${type.id}}" class="badge badge-danger">Удалить продукт</a></td>
         </tr>
     </div>
     <tr>
-        <td colspan="4" align="center"><a th:href="@{/productTypeList/add}" class="badge badge-success">Добавить</a></td>
+        <td colspan="4" align="center"><a th:href="@{/productTypeList/add}" class="badge badge-success">Добавить продукт</a></td>
     </tr>
     </tbody>
 </table>
